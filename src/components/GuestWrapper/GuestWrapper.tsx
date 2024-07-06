@@ -17,7 +17,7 @@ export default function GuestWrapper({
           width: "100vh",
           overflow: "hidden",
           background:
-            "linear-gradient(to right, #081c20, #082024, #062429, #05282d, #032c32)",
+            "linear-gradient(to right, #F6F6F6, #F6F6F6, #F6F6F6, #F6F6F6, #F6F6F6)",
         }}
       >
         {children}
