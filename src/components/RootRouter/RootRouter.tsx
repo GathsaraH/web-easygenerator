@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import * as RouterConfig from "../../util/routes";
 import GuestWrapper from "../GuestWrapper/GuestWrapper";
 import Register from "../../pages/Register/Register";
+import Login from "../../pages/Login/Login";
 const RootRouter = (): JSX.Element => {
   return (
     <Routes>
@@ -11,6 +12,22 @@ const RootRouter = (): JSX.Element => {
         element={
           <GuestWrapper>
             <Register />
+          </GuestWrapper>
+        }
+      />
+      <Route
+        path={RouterConfig.ROUTE_REGISTER_PAGE}
+        element={
+          <GuestWrapper>
+            <Register />
+          </GuestWrapper>
+        }
+      />
+      <Route
+        path={RouterConfig.ROUTE_LOGIN_PAGE}
+        element={
+          <GuestWrapper>
+            <Login />
           </GuestWrapper>
         }
       />

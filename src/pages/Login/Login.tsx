@@ -1,12 +1,11 @@
-import React from "react";
-import { Box, Button, TextField, Typography, Link, Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styled as materialStyled } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import detailContainerBackground from "../../assets/detailContainerBackground.png";
 import fallingImage from "../../assets/fallingImage.png";
-import RegisterForm from "../../components/RegisterForm/RegisterForm";
+import LoginForm from "../../components/LoginForm/LoginForm";
 import { useNavigate } from "react-router";
-import { ROUTE_LOGIN_PAGE } from "../../util/routes";
+import { ROUTE_REGISTER_PAGE } from "../../util/routes";
 
 const fadeIn = keyframes`
   from {
@@ -87,14 +86,14 @@ const AnimatedTypography = materialStyled(Typography)(({ theme }) => ({
   fontWeight: 700,
 }));
 
-const Register = (): JSX.Element => {
+const Login = (): JSX.Element => {
   const navigate = useNavigate();
   return (
     <RegisterContainer>
       <DetailsContainer>
         <SignInContainer>
           <AnimatedTypography variant="h2" textAlign="start">
-            Sign Up to
+            Sign In to
           </AnimatedTypography>
           <AnimatedTypography variant="h3" textAlign="start">
             Recharge Direct
@@ -105,14 +104,15 @@ const Register = (): JSX.Element => {
             }}
           >
             <AnimatedTypography variant="h5">
-              Already have an account?{" "}
+              if you don’t an account
             </AnimatedTypography>
             <AnimatedTypography variant="h5">
+              you can{" "}
               <span
                 style={{ color: "#4461F2", cursor: "pointer" }}
-                onClick={() => navigate(ROUTE_LOGIN_PAGE)}
+                onClick={() => navigate(ROUTE_REGISTER_PAGE)}
               >
-                Login here
+                Register here
               </span>
             </AnimatedTypography>
           </Box>
@@ -120,10 +120,10 @@ const Register = (): JSX.Element => {
         <ImageContainer>
           <img src={fallingImage} alt="Falling Image" />
         </ImageContainer>
-        <RegisterForm />
+        <LoginForm />
       </DetailsContainer>
     </RegisterContainer>
   );
 };
 
-export default Register;
+export default Login;
