@@ -4,6 +4,8 @@ import * as RouterConfig from "../../util/routes";
 import GuestWrapper from "../GuestWrapper/GuestWrapper";
 import Register from "../../pages/Register/Register";
 import Login from "../../pages/Login/Login";
+import AuthorizedWrapper from "../AuthorizedWrapper/AuthorizedWrapper";
+import Home from "../../pages/Home/Home";
 const RootRouter = (): JSX.Element => {
   return (
     <Routes>
@@ -29,6 +31,15 @@ const RootRouter = (): JSX.Element => {
           <GuestWrapper>
             <Login />
           </GuestWrapper>
+        }
+      />
+
+      <Route
+        path={RouterConfig.ROUTE_HOME_PAGE}
+        element={
+          <AuthorizedWrapper>
+            <Home />
+          </AuthorizedWrapper>
         }
       />
     </Routes>

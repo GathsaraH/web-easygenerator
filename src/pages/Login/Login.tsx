@@ -82,7 +82,7 @@ const ImageContainer = materialStyled(Box)(({ theme }) => ({
 
 const AnimatedTypography = materialStyled(Typography)(({ theme }) => ({
   animation: `${slideInLeft} 1.5s ease-out`,
-  fontFamily: "Poppins",
+  fontFamily: "Gilroy",
   fontWeight: 700,
 }));
 
@@ -108,12 +108,12 @@ const Login = (): JSX.Element => {
             </AnimatedTypography>
             <AnimatedTypography variant="h5">
               you can{" "}
-              <span
+              <AnimatedTypography
                 style={{ color: "#4461F2", cursor: "pointer" }}
                 onClick={() => navigate(ROUTE_REGISTER_PAGE)}
               >
                 Register here
-              </span>
+              </AnimatedTypography>
             </AnimatedTypography>
           </Box>
         </SignInContainer>

@@ -5,8 +5,9 @@ import google from "../../assets/Google.png";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { registerFormSchema } from "../../util/validationSchema";
-import { useDispatch } from "react-redux";
 import { authAction } from "../../redux/auth/slice";
+import { useNavigate } from "react-router";
+import { useAppDispatch } from "../../hooks/reduxHelper";
 
 const fadeIn = keyframes`
   from {
@@ -85,7 +86,8 @@ const initialValues: RegisterFormValues = {
 };
 
 const RegisterForm = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const onSubmitFormDetails = async (
     values: RegisterFormValues
   ): Promise<void> => {
@@ -94,7 +96,7 @@ const RegisterForm = (): JSX.Element => {
         name: values.name,
         email: values.email,
         password: values.password,
-        navigate: "",
+        navigate,
       })
     );
   };
@@ -159,18 +161,6 @@ const RegisterForm = (): JSX.Element => {
             formRegisterDetails.errors.password
           }
         />
-        <Grid container justifyContent="flex-end">
-          <Typography
-            sx={{
-              color: "#C7C7C7",
-              fontSize: "20px",
-              marginTop: "8px",
-              fontWeight: 500,
-            }}
-          >
-            Forgot Password?
-          </Typography>
-        </Grid>
         <StyledButton variant="contained" fullWidth type="submit">
           Sign Up
         </StyledButton>

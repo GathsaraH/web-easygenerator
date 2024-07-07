@@ -5,6 +5,9 @@ import google from "../../assets/Google.png";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { loginFormSchema } from "../../util/validationSchema";
+import { useAppDispatch } from "../../hooks/reduxHelper";
+import { authAction } from "../../redux/auth/slice";
+import { useNavigate } from "react-router";
 
 const fadeIn = keyframes`
   from {
@@ -79,15 +82,22 @@ const initialValues: LoginFormValues = {
   email: "",
   password: "",
 };
-const onSubmitFormDetails = async (
-  values: LoginFormValues,
-  actions: any
-): Promise<void> => {
-  console.log("Form Submitted", values);
-  actions.setSubmitting(false);
-};
 
 const LoginForm = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onSubmitFormDetails = async (
+    values: LoginFormValues
+  ): Promise<void> => {
+    dispatch(
+      authAction.login({
+        email: values.email,
+        password: values.password,
+        navigate,
+      })
+    );
+  };
   const formLoginDetails = useFormik({
     initialValues: initialValues,
     validationSchema: loginFormSchema,
@@ -134,9 +144,9 @@ const LoginForm = (): JSX.Element => {
           <Typography
             sx={{
               color: "#C7C7C7",
-              fontSize: "20px",
+              fontSize: "14px",
               marginTop: "8px",
-              fontWeight: 500,
+              fontWeight: 200,
             }}
           >
             Forgot Password?

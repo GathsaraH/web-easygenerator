@@ -1,4 +1,4 @@
-import { Box,  Typography, } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styled as materialStyled } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import detailContainerBackground from "../../assets/detailContainerBackground.png";
@@ -6,6 +6,8 @@ import fallingImage from "../../assets/fallingImage.png";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import { useNavigate } from "react-router";
 import { ROUTE_LOGIN_PAGE } from "../../util/routes";
+import { useAppSelector } from "../../hooks/reduxHelper";
+import Loader from "../../components/Loader/Loader";
 
 const fadeIn = keyframes`
   from {
@@ -82,12 +84,13 @@ const ImageContainer = materialStyled(Box)(({ theme }) => ({
 
 const AnimatedTypography = materialStyled(Typography)(({ theme }) => ({
   animation: `${slideInLeft} 1.5s ease-out`,
-  fontFamily: 'Gilroy', 
+  fontFamily: "Gilroy",
   fontWeight: 700,
 }));
 
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
+  const { loading } = useAppSelector((state) => state.auth);
   return (
     <RegisterContainer>
       <DetailsContainer>
@@ -107,12 +110,12 @@ const Register = (): JSX.Element => {
               Already have an account?{" "}
             </AnimatedTypography>
             <AnimatedTypography variant="h5">
-              <span
+              <AnimatedTypography
                 style={{ color: "#4461F2", cursor: "pointer" }}
                 onClick={() => navigate(ROUTE_LOGIN_PAGE)}
               >
                 Login here
-              </span>
+              </AnimatedTypography>
             </AnimatedTypography>
           </Box>
         </SignInContainer>
@@ -121,6 +124,7 @@ const Register = (): JSX.Element => {
         </ImageContainer>
         <RegisterForm />
       </DetailsContainer>
+      {loading && <Loader />}
     </RegisterContainer>
   );
 };

@@ -1,5 +1,8 @@
+import axios from "axios";
 import { privateRequest, publicRequest } from "../services/axiosInstances";
 import { ApiEndpointUrl, ApiMethod } from "./constants"; // Adjust the import path accordingly
+import { showErrorNotification } from "./notificationManager";
+import { isErrorWithEmail } from "./isErrorWithEmail";
 
 interface ApiCallConfig {
   endpoint: ApiEndpointUrl;
@@ -33,7 +36,6 @@ export const apiCall = async ({
   }
 };
 
-// Public API call example
 export const publicApiCall = async ({
   endpoint,
   method,
@@ -53,8 +55,19 @@ export const publicApiCall = async ({
 
   try {
     const response = await publicRequest.request(config);
-    return response.data;
+    return response;
   } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      if (isErrorWithEmail(error)) {
+        showErrorNotification(
+          "Email already exists. Please try with another email."
+        );
+      } else {
+        showErrorNotification(error.response.data.message);
+      }
+    } else {
+      showErrorNotification("An unexpected error occurred.");
+    }
     throw error;
   }
 };

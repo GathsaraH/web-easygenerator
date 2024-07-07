@@ -2,32 +2,34 @@ import { Effect, ForkEffect, call, put, takeEvery } from "redux-saga/effects";
 import { authAction } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AuthLogin, AuthRegister } from "./type";
+import * as authCalls from "./call";
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from "../../util/notificationManager";
+import { AxiosResponse } from "axios";
+import { isRequestSuccessful } from "../../util/isRequestSuccessful";
+import { ROUTE_HOME_PAGE, ROUTE_LOGIN_PAGE } from "../../util/routes";
 
-async function callLogin(payload: AuthLogin): Promise<any> {
-  // const url = decodeAxiosRequest(ApiEndpointUrl.AUTH_LOGIN, {
-  //   email: payload.email,
-  //   password: payload.password,
-  // });
-  // const email = await publicPostRequest(url, payload);
-  // return email;
-}
 export function* loginSaga({
   payload,
 }: PayloadAction<AuthLogin>): Generator<Effect, void> {
   try {
-    console.log({ payload });
-
-    const response = yield call(callLogin, payload);
-
-    /** TODO :  Drop email */
-
-    //   localStorage.setItem(Storage.EMAIL, response.email);
-    //   localStorage.setItem(Storage.USER_ID, response.userId);
-    //   localStorage.setItem(Storage.ROLE, response.roleId.role);
-    //   localStorage.setItem(Storage.USERNAME, response.userName);
-    //   showSuccessNotification('Logged in Successfully!');
+    const response = (yield call(
+      authCalls.callLogin,
+      payload
+    )) as unknown as AxiosResponse;
+    console.log(response);
+    
+    if (isRequestSuccessful(response.status)) {
+      yield put(authAction.loginSuccess(response.data));
+      showSuccessNotification("Logged in Successfully!");
+      payload.navigate(ROUTE_HOME_PAGE);
+    }
   } catch (error) {
-    //   yield put(authAction.loginFailure(AuthErrorType.ERROR));
+    console.log(error);
+    yield put(authAction.loginFailure(error));
+    showErrorNotification("An unexpected error occurred.");
   }
 }
 
@@ -35,18 +37,18 @@ export function* registerSaga({
   payload,
 }: PayloadAction<AuthRegister>): Generator<Effect, void> {
   try {
-    console.log({ payload }); 
-    const response = yield call(callLogin, payload);
-
-    /** TODO :  Drop email */
-
-    //   localStorage.setItem(Storage.EMAIL, response.email);
-    //   localStorage.setItem(Storage.USER_ID, response.userId);
-    //   localStorage.setItem(Storage.ROLE, response.roleId.role);
-    //   localStorage.setItem(Storage.USERNAME, response.userName);
-    //   showSuccessNotification('Logged in Successfully!');
+    const response = (yield call(
+      authCalls.callRegister,
+      payload
+    )) as unknown as AxiosResponse;
+    if (isRequestSuccessful(response.status)) {
+      yield put(authAction.registerSuccess(response.data));
+      showSuccessNotification("Registered Successfully!");
+      payload.navigate(ROUTE_LOGIN_PAGE);
+    }
   } catch (error) {
-    //   yield put(authAction.loginFailure(AuthErrorType.ERROR));
+    yield put(authAction.loginFailure(error));
+    showErrorNotification("An unexpected error occurred.");
   }
 }
 

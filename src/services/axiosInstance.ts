@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { API_BASE_URL } from '../util/constants';
 
-const API_BASE_URL = 'https://api.example.com'; // Replace with your actual API base URL
+
 
 // Create Axios instance
 const axiosInstance = axios.create({
