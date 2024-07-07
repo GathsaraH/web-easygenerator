@@ -12,9 +12,9 @@ const RootRouter = (): JSX.Element => {
       <Route
         path={RouterConfig.ROUTE_DEFAULT_PAGE}
         element={
-          <GuestWrapper>
+          <AuthorizedWrapper>
             <Home />
-          </GuestWrapper>
+          </AuthorizedWrapper>
         }
       />
       <Route
