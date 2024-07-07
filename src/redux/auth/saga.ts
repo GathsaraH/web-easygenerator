@@ -21,8 +21,6 @@ export function* loginSaga({
       payload
     )) as unknown as AxiosResponse;
     if (isRequestSuccessful(response.status)) {
-      console.log(response.data["user"]);
-
       setTokens(response.data["token"], response.data["refreshToken"]);
       yield put(authAction.loginSuccess(response.data));
       showSuccessNotification("Logged in Successfully!");

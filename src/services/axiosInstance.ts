@@ -1,8 +1,5 @@
 import { ROUTE_LOGIN_PAGE } from "./../util/routes";
-import axios, {
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { API_BASE_URL } from "../util/constants";
 
 const axiosInstance = axios.create({
@@ -59,16 +56,15 @@ axiosInstance.interceptors.response.use(
             },
           }
         );
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
-        setTokens(accessToken, newRefreshToken);
-        axios.defaults.headers.common[
+        setTokens(response.data["token"], response.data["refreshToken"]);
+        axiosInstance.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${accessToken}`;
+        ] = `Bearer ${response.data["token"]}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.href = ROUTE_LOGIN_PAGE
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = ROUTE_LOGIN_PAGE;
       }
     }
 
