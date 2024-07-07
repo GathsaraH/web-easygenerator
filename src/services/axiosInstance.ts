@@ -1,26 +1,24 @@
-import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { API_BASE_URL } from '../util/constants';
+import { ROUTE_LOGIN_PAGE } from "./../util/routes";
+import axios, {
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
+import { API_BASE_URL } from "../util/constants";
 
-
-
-// Create Axios instance
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
-// Function to get access token
-const getAccessToken = () => localStorage.getItem('accessToken');
+export const getAccessToken = () => localStorage.getItem("accessToken");
 
-// Function to get refresh token
-const getRefreshToken = () => localStorage.getItem('refreshToken');
+export const getRefreshToken = () => localStorage.getItem("refreshToken");
 
-// Function to set new tokens
-const setTokens = (accessToken: string, refreshToken: string) => {
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', refreshToken);
+export const setTokens = (accessToken: string, refreshToken: string) => {
+  localStorage.setItem("accessToken", accessToken);
+  localStorage.setItem("refreshToken", refreshToken);
 };
 
 // Request interceptor to add the Authorization header
@@ -44,20 +42,33 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const refreshToken = getRefreshToken();
-
+      if (!refreshToken) {
+        // Redirect to login
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = ROUTE_LOGIN_PAGE;
+        return Promise.reject(error);
+      }
       try {
-        const response = await axios.post(`${API_BASE_URL}/auth/refresh-token`, { token: refreshToken });
+        const response = await axios.post(
+          `${API_BASE_URL}/auth/refresh`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          }
+        );
         const { accessToken, refreshToken: newRefreshToken } = response.data;
         setTokens(accessToken, newRefreshToken);
-
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // Handle refresh token error (e.g., logout user)
-        console.error('Refresh token error:', refreshError);
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/login'; // Redirect to login
+        window.location.href = ROUTE_LOGIN_PAGE
       }
     }
 

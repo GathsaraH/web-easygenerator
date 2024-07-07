@@ -58,6 +58,19 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    me: (state) => {
+      state.loading = true;
+    },
+    meSuccess: (state, action) => {
+      state.loading = false;
+      state.isLoggedIn = true;
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+    },
+    meFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 export const { actions: authAction, reducer: authReducer } = authSlice;

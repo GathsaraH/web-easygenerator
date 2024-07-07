@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Button, Container } from "@mui/material";
 import { styled } from "@mui/system";
 import { blueGrey, grey, amber } from "@mui/material/colors";
 import { motion } from "framer-motion";
-
-
+import { useNavigate } from "react-router";
+import { ROUTE_LOGIN_PAGE } from "../../util/routes";
+import { useAppDispatch } from "../../hooks/reduxHelper";
+import { authAction } from "../../redux/auth/slice";
 
 const DetailsContainer = styled(Container)(({ theme }) => ({
   minHeight: "100vh",
@@ -33,9 +35,17 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const MotionButton = motion(StyledButton);
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleLogout = () => {
-    console.log("Logout clicked");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate(ROUTE_LOGIN_PAGE);
   };
+
+  useEffect(() => {
+    dispatch(authAction.me());
+  }, [dispatch]);
 
   return (
     <DetailsContainer>

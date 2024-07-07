@@ -1,5 +1,4 @@
-import { call } from "redux-saga/effects";
-import { publicApiCall } from "../../util/apiUtils";
+import { apiCall, publicApiCall } from "../../util/apiUtils";
 import { ApiEndpointUrl, ApiMethod } from "../../util/constants";
 import { AuthLogin, AuthRegister } from "./type";
 
@@ -23,6 +22,17 @@ export const callLogin = async (loginData: AuthLogin) => {
       endpoint: ApiEndpointUrl.LOGIN,
       method: ApiMethod.POST,
       data: res,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const callMe = async () => {
+  try {
+    return await apiCall({
+      endpoint: ApiEndpointUrl.ME,
+      method: ApiMethod.GET,
     });
   } catch (error) {
     throw error;
