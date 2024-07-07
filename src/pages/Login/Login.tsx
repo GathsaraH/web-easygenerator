@@ -118,7 +118,7 @@ const Login = (): JSX.Element => {
           </Box>
         </SignInContainer>
         <ImageContainer>
-          <img src={fallingImage} alt="Falling Image" />
+          <img src={fallingImage} alt="Login"/>
         </ImageContainer>
         <LoginForm />
       </DetailsContainer>

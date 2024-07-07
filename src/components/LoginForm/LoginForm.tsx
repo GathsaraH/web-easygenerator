@@ -4,7 +4,7 @@ import facebook from "../../assets/Facebook.png";
 import google from "../../assets/Google.png";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { loginFormSchema } from "../../util/Schema/validationSchema";
+import { loginFormSchema } from "../../util/validationSchema";
 
 const fadeIn = keyframes`
   from {

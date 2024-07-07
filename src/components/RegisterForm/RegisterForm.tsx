@@ -4,7 +4,9 @@ import facebook from "../../assets/Facebook.png";
 import google from "../../assets/Google.png";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { registerFormSchema } from "../../util/Schema/validationSchema";
+import { registerFormSchema } from "../../util/validationSchema";
+import { useDispatch } from "react-redux";
+import { authAction } from "../../redux/auth/slice";
 
 const fadeIn = keyframes`
   from {
@@ -82,15 +84,21 @@ const initialValues: RegisterFormValues = {
   password: "",
 };
 
-const onSubmitFormDetails = async (
-  values: RegisterFormValues,
-  actions: any
-): Promise<void> => {
-  console.log("Form Submitted", values);
-  actions.setSubmitting(false);
-};
-
 const RegisterForm = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const onSubmitFormDetails = async (
+    values: RegisterFormValues
+  ): Promise<void> => {
+    dispatch(
+      authAction.register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        navigate: "",
+      })
+    );
+  };
+
   const formRegisterDetails = useFormik({
     initialValues: initialValues,
     validationSchema: registerFormSchema,

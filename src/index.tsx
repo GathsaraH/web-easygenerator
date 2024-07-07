@@ -5,17 +5,21 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { SnackbarProvider } from "notistack";
 import { BrowserRouter } from "react-router-dom";
-
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import './fonts.css';
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <SnackbarProvider autoHideDuration={5000}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </SnackbarProvider>
+    <Provider store={store}>
+      <SnackbarProvider autoHideDuration={5000}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </SnackbarProvider>
+    </Provider>
   </React.StrictMode>
 );
 

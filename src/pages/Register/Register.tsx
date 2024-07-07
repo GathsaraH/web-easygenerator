@@ -1,5 +1,4 @@
-import React from "react";
-import { Box, Button, TextField, Typography, Link, Grid } from "@mui/material";
+import { Box,  Typography, } from "@mui/material";
 import { styled as materialStyled } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import detailContainerBackground from "../../assets/detailContainerBackground.png";
@@ -74,7 +73,7 @@ const ImageContainer = materialStyled(Box)(({ theme }) => ({
   position: "relative",
   "& img": {
     width: "100%",
-    height: "90%",
+    height: "80%",
     animation: `${bounce} 2s infinite`,
   },
   right: theme.spacing(8),
@@ -83,7 +82,7 @@ const ImageContainer = materialStyled(Box)(({ theme }) => ({
 
 const AnimatedTypography = materialStyled(Typography)(({ theme }) => ({
   animation: `${slideInLeft} 1.5s ease-out`,
-  fontFamily: "Poppins",
+  fontFamily: 'Gilroy', 
   fontWeight: 700,
 }));
 
@@ -118,7 +117,7 @@ const Register = (): JSX.Element => {
           </Box>
         </SignInContainer>
         <ImageContainer>
-          <img src={fallingImage} alt="Falling Image" />
+          <img src={fallingImage} alt="Register" />
         </ImageContainer>
         <RegisterForm />
       </DetailsContainer>

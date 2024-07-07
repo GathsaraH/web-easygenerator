@@ -1,8 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import RootRouter from './components/RootRouter/RootRouter';
 import theme from './theme';
+import RootRouter from './components/RootRouter/RootRouter';
 
 const App = (): JSX.Element => {
   return (
