@@ -13,7 +13,7 @@ const RootRouter = (): JSX.Element => {
         path={RouterConfig.ROUTE_DEFAULT_PAGE}
         element={
           <GuestWrapper>
-            <Register />
+            <Home />
           </GuestWrapper>
         }
       />
