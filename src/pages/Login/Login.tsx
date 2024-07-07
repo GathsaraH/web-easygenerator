@@ -6,6 +6,8 @@ import fallingImage from "../../assets/fallingImage.png";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { useNavigate } from "react-router";
 import { ROUTE_REGISTER_PAGE } from "../../util/routes";
+import { useAppSelector } from "../../hooks/reduxHelper";
+import Loader from "../../components/Loader/Loader";
 
 const fadeIn = keyframes`
   from {
@@ -88,6 +90,7 @@ const AnimatedTypography = materialStyled(Typography)(({ theme }) => ({
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
+  const { loading } = useAppSelector((state) => state.auth);
   return (
     <RegisterContainer>
       <DetailsContainer>
@@ -122,6 +125,7 @@ const Login = (): JSX.Element => {
         </ImageContainer>
         <LoginForm />
       </DetailsContainer>
+      {loading && <Loader />}
     </RegisterContainer>
   );
 };
