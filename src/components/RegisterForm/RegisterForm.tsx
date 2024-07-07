@@ -118,6 +118,7 @@ const RegisterForm = (): JSX.Element => {
           name="name"
           value={formRegisterDetails.values.name}
           onChange={formRegisterDetails.handleChange}
+          onBlur={formRegisterDetails.handleBlur}
           error={
             formRegisterDetails.touched.name &&
             Boolean(formRegisterDetails.errors.name)
@@ -134,6 +135,7 @@ const RegisterForm = (): JSX.Element => {
           name="email"
           value={formRegisterDetails.values.email}
           onChange={formRegisterDetails.handleChange}
+          onBlur={formRegisterDetails.handleBlur}
           error={
             formRegisterDetails.touched.email &&
             Boolean(formRegisterDetails.errors.email)
@@ -152,6 +154,7 @@ const RegisterForm = (): JSX.Element => {
           name="password"
           value={formRegisterDetails.values.password}
           onChange={formRegisterDetails.handleChange}
+          onBlur={formRegisterDetails.handleBlur}
           error={
             formRegisterDetails.touched.password &&
             Boolean(formRegisterDetails.errors.password)

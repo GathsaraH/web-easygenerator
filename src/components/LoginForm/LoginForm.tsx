@@ -114,6 +114,7 @@ const LoginForm = (): JSX.Element => {
           name="email"
           value={formLoginDetails.values.email}
           onChange={formLoginDetails.handleChange}
+          onBlur={formLoginDetails.handleBlur}
           error={
             formLoginDetails.touched.email &&
             Boolean(formLoginDetails.errors.email)
@@ -131,6 +132,7 @@ const LoginForm = (): JSX.Element => {
           name="password"
           value={formLoginDetails.values.password}
           onChange={formLoginDetails.handleChange}
+          onBlur={formLoginDetails.handleBlur}
           error={
             formLoginDetails.touched.password &&
             Boolean(formLoginDetails.errors.password)

@@ -41,6 +41,7 @@ const Home: React.FC = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     navigate(ROUTE_LOGIN_PAGE);
+    dispatch(authAction.logout());
   };
 
   useEffect(() => {

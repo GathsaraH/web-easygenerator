@@ -90,7 +90,8 @@ const AnimatedTypography = materialStyled(Typography)(({ theme }) => ({
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
-  const { loading } = useAppSelector((state) => state.auth);
+  const { isLoading } = useAppSelector((state) => state.auth);
+
   return (
     <RegisterContainer>
       <DetailsContainer>
@@ -125,7 +126,7 @@ const Login = (): JSX.Element => {
         </ImageContainer>
         <LoginForm />
       </DetailsContainer>
-      {loading && <Loader />}
+      {isLoading && <Loader />}
     </RegisterContainer>
   );
 };

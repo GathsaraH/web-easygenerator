@@ -9,6 +9,7 @@ export interface AuthSlice {
   isLoggedIn: boolean;
   loading: boolean;
   error: string;
+  isLoading: boolean;
 }
 
 export const initialState: AuthSlice = {
@@ -19,6 +20,7 @@ export const initialState: AuthSlice = {
   isLoggedIn: false,
   loading: false,
   error: "",
+  isLoading: false,
 };
 
 export const authSlice = createSlice({
@@ -26,17 +28,17 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<AuthLogin>) => {
-      state.loading = true;
+      state.isLoading = true;
       state.email = action.payload.email;
       state.password = action.payload.password;
     },
     loginSuccess: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.isLoggedIn = true;
       state.token = action.payload.token;
     },
     loginFailure: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.error = action.payload;
     },
     logout: (state) => {
@@ -59,7 +61,7 @@ export const authSlice = createSlice({
       state.error = action.payload;
     },
     me: (state) => {
-      state.loading = true;
+      state.loading = true; 
     },
     meSuccess: (state, action) => {
       state.loading = false;
